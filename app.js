@@ -26,11 +26,6 @@ app.use(session({
 }));
 
 //database stuff------------------------------------
-mongoose.connect(process.env.DATABASE_URI, {useNewUrlParser:true,useUnifiedTopology: true}).then(()=>{
-    console.log("successfully connected to the database");
-}).catch(err=>{
-    console.log("unable to connect to the database");
-});
 
 const userSchema = new mongoose.Schema({
     username:{
@@ -396,7 +391,16 @@ app.get("/preview/:previewid", (req, res)=>{
 app.get("/panel", (req, res)=>{
     res.render("panel");
 })
-
-app.listen(port, (req, res)=>{
-    console.log(`server started, listening at port ${port}`);
+async function mainFun(){
+    try{
+        await await mongoose.connect(process.env.DATABASE_URI, {useNewUrlParser:true,useUnifiedTopology: true});
+        console.log("connected to the database");
+        app.listen(port, (req, res)=>{
+        console.log(`server started, listening at port ${port}`);
 });
+        
+    }catch(err){
+console.log("unable to connect to the database";
+    }
+}
+mainFun();
