@@ -16,7 +16,7 @@ mongoose.connect(process.env.DATABASE_URI, {useNewUrlParser:true,useUnifiedTopol
     console.log("successfully connected to the database");
     
 //server stuff--------------------------------------
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 const app = express();
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended:true}));
