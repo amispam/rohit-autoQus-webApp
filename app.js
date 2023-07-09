@@ -21,7 +21,7 @@ app.use(express.urlencoded({extended: true}));
 mongoose.connect(process.env.DATABASE_URI, {useNewUrlParser:true,useUnifiedTopology: true}).then(()=>{
     console.log("successfully connected to the database");
 }).catch(err=>{
-    console.log(err);
+    console.log("unable to connect to the database");
 });
 
 const userSchema = new mongoose.Schema({
@@ -69,10 +69,10 @@ app.route("/")
                 console.log("signup successfull");
                 res.redirect("/login");
             }).catch(err=>{
-                console.log(err);
+                console.log("unable to register user.");
                 res.redirect("/");
             });
-        }).catch(err=>{console.log(err)});
+        }).catch(err=>{console.log("uh oh some unexpected server while registering user.")});
     }else{
         console.log("failed to validate...");
         res.redirect("/");
@@ -85,7 +85,7 @@ app.route("/login")
         User.findOne({_id: req.session.userid}).then(userinfo=>{
             res.render("dashboard", {userinfo: userinfo});
         }).catch(err=>{
-            console.log(err);
+            console.log("some error took place while finding you!");
         });
     }else{
         res.render("login");
@@ -108,14 +108,14 @@ app.route("/login")
             })
         }else{ res.send("<h1>Error: unable to find you in our database, please register first to login...</h1>");}
     }).catch(err=>{
-        console.log(err);
+        console.log("error while find execution.");
     })
 });
 
 app.get("/logout", (req, res)=>{
     req.session.destroy(err=>{
         if(err){
-            console.log(err)
+            console.log("unable to logout")
         }else{
             res.clearCookie('connect.sid');
             res.redirect("/login");
@@ -129,7 +129,7 @@ app.route("/dashboard")
         User.findOne({_id: req.session.userid}).then(userinfo=>{
             res.render("dashboard", {userinfo: userinfo});
         }).catch(err=>{
-            console.log(err);
+            console.log("dashboard error.");
         });
     }else {
         res.redirect("/login");
@@ -217,7 +217,7 @@ app.route("/create")
             test: temptest,
             userid: req.session.userid
         });
-        tempPaper.save().then(()=>{res.redirect("/paper");}).catch(err=>{console.log(err);});
+        tempPaper.save().then(()=>{res.redirect("/paper");}).catch(err=>{console.log("unable to save...");});
     }
 });
 
@@ -228,7 +228,7 @@ app.route("/paper")
             const userinfo = await Paper.find({userid: req.session.userid});
             res.render("paper", {userinfo: userinfo});
         }catch(err){
-            console.log(err);
+            console.log("error while handeling paper...");
         }
     }
     else{
@@ -256,7 +256,7 @@ app.route("/add/:paperId")
             }else{
                 res.redirect("/dashboard");
             }
-        }).catch(err=>{console.log(err); res.redirect("/dashboard");});
+        }).catch(err=>{console.log("error while validating paper"); res.redirect("/dashboard");});
     }else{
         res.redirect("/login");
     }
@@ -279,7 +279,7 @@ app.route("/add/:paperId")
                         paperid: customurl,
                         userid: req.session.userid
                     });
-                    tempQus.save().then(()=>{res.redirect("/add/"+customurl);}).catch(err=>console.log(err));
+                    tempQus.save().then(()=>{res.redirect("/add/"+customurl);}).catch(err=>console.log("sorry, can not save at the moment..."));
                 }else{
                     const tempQus = new Question({
                         qtype: req.body.qtype,
@@ -293,7 +293,7 @@ app.route("/add/:paperId")
             }else{
                 res.redirect("/dashboard");
             }
-        }).catch(err=>{console.log(err); res.redirect("/dashboard");});
+        }).catch(err=>{console.log("some serious error related to paper..."); res.redirect("/dashboard");});
     }else{
         res.redirect("/login");
     }
@@ -308,15 +308,15 @@ app.route("/delete/:paperId")
                 Paper.deleteOne({_id: customurl}).then(()=>{
                     Question.deleteMany({paperid: customurl}).then(()=>{
                         res.redirect("/paper");
-                    }).catch(err=>{console.log(err)});
+                    }).catch(err=>{console.log("unable to delete question")});
                 }).catch(err=>{
-                    console.log(err);
+                    console.log("ubable to delete paper");
                 });
             }else{
                 res.send("<h1>Invalid request</h1>");
             }
         }).catch(err=>{
-            console.log(err);
+            console.log("seems your paper in not in our records...");
         });
     }else{res.redirect("/login");}
 });
@@ -329,9 +329,9 @@ app.get("/delete/question/:questionid", (req, res)=>{
             if(foundQuestion.userid.toString() === req.session.userid){
                 Question.deleteOne({_id: customurl}).then(()=>{
                     res.redirect("/add/"+getpaperidbyqus);
-                }).catch(err=>{console.log(err);});
+                }).catch(err=>{console.log("unable to delete perticular question...");});
             }
-        }).catch(err=>{console.log(err);});
+        }).catch(err=>{console.log("unable to find that perticular paper.");});
     }else{
         res.redirect("/login");
     }
@@ -387,7 +387,7 @@ app.get("/preview/:previewid", (req, res)=>{
             }else{
                 res.send("<h1>invalid request</h1>");
             }
-        }).catch(err=>{console.log(err);});
+        }).catch(err=>{console.log("that paper seems does not exists...");});
     }else{
         res.redirect("/login");
     }
