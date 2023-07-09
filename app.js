@@ -124,6 +124,7 @@ app.get("/logout", (req, res)=>{
 
 app.route("/dashboard")
 .get((req, res)=>{
+    console.log(req.session.userid,req.session.authorized);
     if(req.session.userid && req.session.authorized === true){
         User.findOne({_id: req.session.userid}).then(userinfo=>{
             res.render("dashboard", {userinfo: userinfo});
