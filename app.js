@@ -393,7 +393,7 @@ app.get("/panel", (req, res)=>{
 })
 async function mainFun(){
     try{
-        await await mongoose.connect(process.env.DATABASE_URI, {useNewUrlParser:true,useUnifiedTopology: true});
+        await mongoose.connect(process.env.DATABASE_URI, {useNewUrlParser:true,useUnifiedTopology: true});
         console.log("connected to the database");
         app.listen(port, (req, res)=>{
         console.log(`server started, listening at port ${port}`);
