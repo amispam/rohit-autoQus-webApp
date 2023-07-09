@@ -1,0 +1,27 @@
+<%- include("partials/header") -%>
+
+<div class="pmain">
+    <% if(userinfo.length > 0){ (userinfo).forEach(el=>{ %>
+    <div class="pgrid">
+        <div class="pcontent"><a href="/add/<%= el._id %>"><%= el.class %>th, <%= el.subject %></a></div>
+        <div class="padd"></div>
+        <div class="pedit"><a href="/preview/<%= el._id %>">preview</a></div>
+        <div class="ppreview"><a href="/delete/<%= el._id %>">delete</a></div>
+    </div>
+    <div class="pshowqus">
+        <div class="pshowtitle"></div>
+        <div class="pdeletethisone"></div>
+    </div>
+    <% }); } else{ %>
+        <div class="pmain">
+            <img src="/images/Nothing.gif" alt="nothing to show here...">
+        </div>
+    <% } %>
+</div>
+
+
+
+
+
+
+<%- include("partials/footer") -%>

@@ -1,0 +1,277 @@
+/* color palet = [ #00FFCA, #05BFDB, #088395, #0A4D68 ] */
+body{
+    background-image: linear-gradient(to left, #00FFCA, #05BFDB);
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin:0;
+    padding: 0;
+}
+
+.header{
+    display: flex;
+    align-items: center;
+    background-image: linear-gradient(to right, #0A4D68, #088395);
+    padding: 0.5rem;
+}
+.logodiv{
+    width:50vw;
+    display: flex;
+    align-items: center;
+}
+.logodiv > span{
+    display: inline-block;
+    margin-left: 1rem;
+    color:#00FFCA;
+    font-weight: 800;
+}
+.contentdiv{
+    width: 50vw;
+    display: flex;
+    justify-content:end;
+    z-index: 2;
+}
+.logo{
+    border-radius: 50%;
+}
+
+@media (min-width:600px){
+    .header{
+        height: 4rem;
+    }
+    .logodiv{
+        height: 4rem;
+    }
+    .logodiv > span{
+        font-size: 2.5rem;
+    }
+    .contentdiv{
+        height: 4rem;
+    }
+    .logo{
+        height: 3.5rem;
+        width:3.5rem;
+        margin-left:2rem;
+    }
+    .dropbtn{
+        height: 4rem;
+    }
+    .icon{
+        width: 2.5rem;
+    }
+    .dropcontainer{
+        width: 260px;
+    }
+    .dropdown a{
+        font-size:2rem;
+        padding: 1rem;
+    }
+}
+
+@media (max-width:600px){
+    .header{
+        height: 3rem;
+    }
+    .logodiv{
+        height: 3rem;
+    }
+    .logodiv > span{
+        font-size: 1.5rem;
+    }
+    .contentdiv{
+        height: 3rem;
+    }
+    .logo{
+        height: 2.5rem;
+        width:2.5rem;
+        margin-left:1rem;
+    }
+    .dropbtn{
+        height: 3rem;
+    }
+    .icon{
+        width: 1.5rem;
+    }
+    .dropcontainer{
+        width: 100px;
+    }
+    .dropdown a{
+        font-size:1rem;
+        padding: 0.5rem;
+    }
+}
+
+.logodiv > span > a{
+    text-decoration: none;
+    color: #00FFCA;
+}
+
+.dropbtn{
+    background-color: #2D4356;
+    color:#00FFCA;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.dropcontainer{
+    background-color: #00FFCA;
+    text-align: center;
+}
+
+.display{
+    display: none;
+}
+
+.dropdown a{
+    display: block;
+    text-decoration: none;
+    background-color: #00FFCA;
+    color:#0A4D68;
+}
+
+.dropdown a:hover{
+    background-color: #435B66;
+    color:#00FFCA;
+}
+
+.homeform, .loginform{
+    margin: 100px auto;
+    padding: 2rem;
+    color:#0A4D68;
+    display: flex;
+    width: 55vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 1rem;
+}
+.homeform h1, .loginform h1{
+    text-align: center;
+    font-size: 2rem;
+}
+.homeform label, .loginform label{
+    font-size: 1.5rem;
+    margin-bottom: 4px;
+}
+.homeform input:focus, .loginform input:focus{
+    outline: none;
+}
+.homeform input[type=text], .homeform input[type=password], .homeform input[type=number], .loginform input[type=text], .loginform input[type=password], .loginform input[type=number]{
+    width: 55vw;
+    font-size: 2rem;
+    border-left: none;
+    border-top: none;
+    border-right: none;
+    text-align: center;
+    background-color: rgba(0,0,0,0);
+    color:#0A4D68;
+    margin-bottom: 1rem;
+}
+
+.homeform button, .loginform button{
+    width: 55vw;
+    font-size: 3rem;
+    border-left: none;
+    border-top: none;
+    border-right: none;
+    text-align: center;
+    color:#00FFCA;
+    background-color:#0A4D68;
+    margin-top:0.5rem;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+}
+
+.warning{
+    display: inline-block;
+    background-color: yellow;
+    color:red;
+    position: fixed;
+    top:110px;
+    right:20px;
+    padding:1rem;
+    font-weight: 800;
+}
+.warning span{
+    float: right;
+}
+.warning>span>button{
+    background-color: rgba(0,0,0,0);
+    border:none;
+}
+
+.aqtype {
+    margin-top: 2rem;
+    display: flex;
+    height: 2.2rem;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 8rem;
+    flex-wrap: wrap;
+}
+
+.aqtype div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.aqtype>div>label{
+    font-size: 1rem;
+    font-weight: 800;
+}
+
+.aqtype input[type=radio]{
+    width: 1.5rem;
+    border: none;
+    height: 1.5rem;
+}
+
+
+.aqustablecontainer{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3rem;
+    font-size: 1.2rem;
+    color:#0A4D68;
+    background-color: cornflowerblue;
+    font-weight: bold;
+}
+
+.aquscontainer{
+    width:100%;
+    display: grid;
+    grid-template-columns: 2fr 8fr 2fr;
+    grid-template-rows: 1fr;
+    gap: 0.5rem;
+}
+
+.aquscontainer > div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    text-align:center;
+}
+
+.aqusaction{
+    text-decoration: none;
+    color: yellow;
+    background-color: red;
+    padding:0.5rem;
+    border-radius: 8px;
+}
+
+.aqusheader{
+    background-color: #088395;
+}
+
+.mpanelview{
+    text-decoration: none;
+    background-color: #00FFCA;
+    color:#0A4D68;
+    font-size: 1.5rem;
+    padding:1rem;
+    float:right;
+    z-index: 1;
+}

@@ -1,0 +1,28 @@
+{
+  "name": "automate-paper",
+  "version": "1.0.0",
+  "description": "you can submit your questions and it will create paper for you, also you can save it and share it with others.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "create",
+    "paper",
+    "automate",
+    "question",
+    "question-paper"
+  ],
+  "author": "Rohit Yadav",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.20.2",
+    "connect-mongo": "^5.0.0",
+    "dotenv": "^16.3.1",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "mongoose": "^7.3.1"
+  }
+}

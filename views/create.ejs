@@ -1,0 +1,23 @@
+<%- include("partials/header") -%>
+
+<div class="loginform">
+    <h1>create</h1>
+    <form action="/create" method="post">
+        <label for="cCls">class</label>
+        <input type="number" id="cCls" name="class" autocomplete="off" required autofocus>
+        <label for="cSub">subject</label>
+        <input type="text" id="cSub" name="subject" autocomplete="off" required>
+
+        <label for="cSco">maximum score</label>
+        <input type="text" id="cSco" name="score" autocomplete="off" required>
+        <label for="cDur">time duration</label>
+        <input type="text" id="cDur" name="duration" autocomplete="off" required>
+        <label for="cTes">test name</label>
+        <input type="text" id="cTes" name="test" autocomplete="off" required>
+
+        <button type="submit" name="sub">submit</button>
+    </form>
+</div>
+
+
+<%- include("partials/footer") -%>

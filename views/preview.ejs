@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>preview</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oleo+Script+Swash+Caps&display=swap" rel="stylesheet">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="/style/preview.css">
+</head>
+<body>
+    <div class="superbox">
+        <div class="main">
+
+            <div class="header">
+                <div class="logo"></div>
+                <div class="school">Uma Memorial Public School</div>
+                <div class="test"><div class="rotate"> <%= tes %> </div></div>
+                <div class="local">Dherahi Lakhanpur, Varanasi</div>
+                <div class="subcls">
+                    <% if(parseInt(cls) >= 4){ %>
+                        <%= cls %>th, <%= sub %>
+                        <% }else if(parseInt(cls) < 4){ %>
+                            <% if(parseInt(cls) === 1){ %>
+                                <%= cls %>st, <%= sub %>
+                            <% }else if(parseInt(cls) === 2){ %>
+                                <%= cls %>nd, <%= sub %>
+                            <% }else if(parseInt(cls) === 3){ %>
+                                <%= cls %>rd, <%= sub %>
+                            <% } %>
+                        <% } %>
+                </div>
+                
+            </div>
+            <div class="panel">
+                <div>
+                    <div class="sco">Maximum Score: <%= sco %></div>
+                    <div class="dur">Duration: <%= dur %></div>
+                </div>
+            </div>
+
+
+            <br />
+            <% if(opt.length > 0){ %>
+                <% qusNumber += 1; %>
+            <!-- optional begins -->
+            <div class="question">
+                <div class="qusbody">
+                    <div class="title">
+                        <h1><b>Question <%= qusNumber %>.</b> Choose the correct option.</h1> 
+                    </div>
+
+                    <% opt.forEach(el=>{ %>
+                    <!-- this portion iterates -->
+                    <div class="qus"><b><%= el[6] %>.</b> <%= el[0] %></div>
+                    <div class="optgrid">
+                        <div><b>(a)</b> <%= el[1] %></div>
+                        <div><b>(b)</b> <%= el[2] %></div>
+                    </div>
+                    <div class="optgrid">
+                        <div><b>(c)</b> <%= el[3] %></div>
+                        <div><b>(d)</b> <%= el[4] %></div>
+                    </div>
+                    <!-- this portion iterates -->
+                    <% }) %>
+
+                </div>
+            </div>
+            <!-- optional ends -->
+            <% } %>
+
+            <% if(fib.length > 0){ %>
+                <% qusNumber += 1; %>
+            <!-- fill in the blanks begins -->
+            <div class="question">
+                <div class="qusbody">
+                    <div class="title">
+                        <h1><b>Question <%= qusNumber %>.</b> Fill in the blanks.</h1> 
+                    </div>
+
+                    <% fib.forEach(el=>{ %> 
+                    <!-- this portion iterates -->
+                    <div class="qus"><b><%= el[2] %>.</b> <%= el[0] %></div>
+                    <!-- this portion iterates -->
+                    <% }) %>
+
+                </div>
+            </div>
+            <!-- fill in the blanks ends -->
+            <% } %>
+
+            <% if(tf.length > 0){ %>
+                <% qusNumber += 1; %>
+            <!-- ture false begins -->
+            <div class="question">
+                <div class="qusbody">
+                    <div class="title">
+                        <h1><b>Question <%= qusNumber %>.</b> Against each of the following statements mark ✔️ if it is true and ✖️ if it is false.</h1> 
+                    </div>
+
+                    <% tf.forEach(el=>{ %>
+                    <!-- this portion iterates -->
+                    <div class="qus"><b><%= el[2] %>.</b> <%= el[0] %></div>
+                    <!-- this portion iterates -->
+                    <% }) %>
+
+                </div>
+            </div>
+            <!-- ture false ends -->
+            <% } %> 
+
+            <% if(ans.length > 0){ %>
+                <% qusNumber += 1; %>
+            <!-- Answer the following questions begins -->
+            <div class="question">
+                <div class="qusbody">
+                    <div class="title">
+                        <h1><b>Question <%= qusNumber %>.</b> Answer the following questions.</h1> 
+                    </div>
+
+                    <% ans.forEach(el=>{ %>
+                    <!-- this portion iterates -->
+                    <div class="qus"><b><%= el[2] %>.</b> <%= el[0] %></div>
+                    <!-- this portion iterates -->
+                    <% }) %>
+
+                </div>
+            </div>
+            <!-- Answer the following questions begins --> 
+            <% } %> 
+
+
+
+        </div>
+    </div>
+    <br /><br />
+
+
+
+
+
+
+</body>
+</html>

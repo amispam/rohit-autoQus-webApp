@@ -1,0 +1,86 @@
+
+.dtitle{
+    color:midnightblue;
+    text-align: center;
+}
+
+.dcontainer{
+    display: flex;
+    justify-content: center;
+}
+
+.dashboardcontainer{
+    margin-top:16px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+}
+
+.create{
+    background-image: url("/images/create.svg");
+    background-size: 25vw;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.mypapers{
+    background-image: url("/images/paper.svg");
+    background-size: 25vw;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.create, .mypapers{
+    position: relative;
+    height: 30vw; 
+    width: 30vw;
+    background-color: #088395;
+    padding:2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:midnightblue;
+}
+
+.create:hover{
+    background-color: #0A4D68;
+}
+
+.mypapers:hover{
+    background-color: #0A4D68;
+}
+
+.hyperspan{
+    height: 100%;
+    width: 100%;
+    left:0;
+    top:0;
+    position: absolute;
+    z-index: 1;
+}
+
+@media (min-width:800px){
+    .create, .mypapers{
+        font-size: 2.5rem;
+    }
+    .dashboardcontainer{
+        gap:1rem;
+    }
+}
+@media (min-width:420px) and (max-width:800px){
+    .create, .mypapers{
+        font-size: 1.5rem;
+    }
+    .dashboardcontainer{
+        gap:1rem;
+    }
+}
+
+@media (max-width:420px){
+    .create, .mypapers{
+        font-size: 1.2rem;
+    }
+    .dashboardcontainer{
+        gap:2px;
+    }
+}

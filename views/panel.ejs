@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="/style/panel.css">
+</head>
+<body>
+    <!-- <button class="zinitiate">panel</button> -->
+    <div class="zcontainer">
+        <div class="zpanel">
+            <div class="zdisplay" id="zdisplay">Display</div>
+            <input type="text" class="zlatex" id="zlatex" placeholder="LaTex code">
+            <div class="zrow">
+                <div><button class="zbtn" onclick="zshowVal(this)" value="+">
+                    \(+\)
+                </button></div>
+                <div><button class="zbtn" onclick="zshowVal(this)" value="-">
+                    \(-\)
+                </button></div>
+                <div><button class="zbtn" onclick="zshowVal(this)" value="\times ">
+                    \(\times\)
+                </button></div>
+                <div><button class="zbtn" onclick="zshowVal(this)" value="\div ">
+                    \(\div\)
+                </button></div>
+                <div><button class="zbtn" onclick="zshowVal(this)" value="\pm ">
+                    \(\pm\)
+                </button></div>
+            </div>
+
+            <div class="zrow">
+                <div><button class="zbtn" onclick="zshowVal(this)" value="\sqrt{?} ">
+                    \(\sqrt{\square}\)
+                </button></div>
+                <div><button class="zbtn" onclick="zshowVal(this)" value="\sqrt[n]{?} ">
+                    \(\sqrt[?]{\square}\)
+                </button></div>
+                <div><button class="zbtn" onclick="zshowVal(this)" value="^2 ">
+                    \(\square^2\)
+                </button></div>
+                <div><button class="zbtn" onclick="zshowVal(this)" value="^{?} ">
+                    \(\square^{?}\)
+                </button></div>
+                <div><button class="zbtn" onclick="zshowVal(this)" value="\frac{?}{?} ">
+                    \(\frac{\square}{\square}\)
+                </button></div>
+            </div>
+
+            <div class="zrow">
+                <div><button class="zbtn" onclick="zshowVal(this)" value="\mid{?}\mid ">
+                    \(\mid{?}\mid\)
+                </button></div>
+                <div><button class="zbtn" onclick="zshowVal(this)" value="\angle ">
+                    \(\angle\)
+                </button></div>
+                <div><button class="zbtn" onclick="zshowVal(this)" value="^{\circ} ">
+                    \(x^{\circ}\)
+                </button></div>
+                <div><button class="zbtn" onclick="zshowVal(this)" value="\sim ">
+                    \(\sim\)
+                </button></div>
+                <div><button class="zbtn" onclick="zshowVal(this)" value="\cong ">
+                    \(\cong\)
+                </button></div>
+            </div>
+
+            <div class="zrow">
+                <div><button class="zbtn" onclick="zshowVal(this)" value="\ne ">
+                    \(\ne\)
+                </button></div>
+                <div><button class="zbtn" onclick="zshowVal(this)" value="\triangle ">
+                    \(\triangle\)
+                </button></div>
+                <div><button class="zbtn" onclick="zshowVal(this)" value="\lt ">
+                    \(\lt\)
+                </button></div>
+                <div><button class="zbtn" onclick="zshowVal(this)" value="\gt ">
+                    \(\gt\)
+                </button></div>
+                <div><button class="zbtn" onclick="zshowVal(this)" value="\le ">
+                    \(\le\)
+                </button></div>
+            </div>
+
+            <div class="zrow">
+                <div><button class="zbtn" onclick="zshowVal(this)" value="\ge ">
+                    \(\ge\)
+                </button></div>
+                <div><button class="zbtn" onclick="zshowVal(this)" value="\left( ? \right) ">
+                    \(\left( ? \right)\)
+                </button></div>
+                <div><button class="zbtn" onclick="zshowVal(this)" value="\left\{ ? \right\} ">
+                    \(\left\{ ? \right\}\)
+                </button></div>
+                <div><button class="zbtn" onclick="zshowVal(this)" value="\left[ ? \right] ">
+                    \(\left[ ? \right]\)
+                </button></div>
+                <div><button class="zbtn" onclick="zshowVal(this)" value="\le ">
+                    \(\le\)
+                </button></div>
+            </div>            
+
+            <div class="zrow">
+                <div><button class="zbtn" onclick="zshowVal(this)" value="\to ">
+                    \(\to\)
+                </button></div>
+                <div><button class="zbtn" onclick="zshowVal(this)" value="\lim \limits_{? \to ?}">
+                    \(\lim \limits_{? \to ?}\)
+                </button></div>
+                <div><button class="zbtn" onclick="zshowVal(this)" value="_{?}">
+                    \({a}_{i}\)
+                </button></div>
+                <div><button class="zbtn" onclick="zshowVal(this)" value="\sum_{i=?}^{n} ">
+                    \(\sum_{i=?}^{n}\)
+                </button></div>
+                <div><button class="zbtn" onclick="zshowVal(this)" value="\int_{?}^{?} ">
+                    \(\int_{?}^{?}\)
+                </button></div>
+            </div>  
+
+            <div class="zrow">
+                <div><button class="zbtn" onclick="zshowVal(this)" value="\cup ">
+                    \(\cup\)
+                </button></div>
+                <div><button class="zbtn" onclick="zshowVal(this)" value="\cap ">
+                    \(\cap\)
+                </button></div>
+                <div><button class="zbtn" onclick="zshowVal(this)" value="\subset ">
+                    \(\subset\)
+                </button></div>
+                <div><button class="zbtn" onclick="zshowVal(this)" value="\supset ">
+                    \(\supset\)
+                </button></div>
+                <div><button class="zbtn" onclick="zshowVal(this)" value="\in ">
+                    \(\in\)
+                </button></div>
+            </div> 
+
+            <div class="zrow">
+                <div><button class="zbtn" onclick="zshowVal(this)" value="\notin ">
+                    \(\notin\)
+                </button></div>
+                <div><button class="zbtn" onclick="zshowVal(this)" value="\forall ">
+                    \(\forall\)
+                </button></div>
+                <div><button class="zbtn" onclick="zshowVal(this)" value="\implies ">
+                    \(\implies\)
+                </button></div>
+                <div><button class="zbtn" onclick="zshowVal(this)" value="\iff ">
+                    \(\iff\)
+                </button></div>
+                <div><button class="zbtn" id="cpy" onclick="cpyIt()">
+                    cpy
+                </button></div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+        </div>
+
+    </div>
+
+    <input type="text" name="copycode" id="copycode" style="position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); height:40px; width:360px; box-shadow:10px 10px 10px black; background:black; color:gold; text-align:center; font-size:1.1rem; font-weight:bold; display:none;">
+
+    <script src="/script/panel.js"></script>
+
+
+
+</body>
+</html>

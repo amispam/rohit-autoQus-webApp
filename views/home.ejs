@@ -1,0 +1,19 @@
+<%- include("partials/header") -%>
+
+<div class="warning"><span><button>❌</button></span><div class="msg"></div></div>
+
+<div class="homeform">
+    <h1>signup</h1>
+    <form action="/" method="post">
+        <label for="usr">unique username</label>
+        <input type="text" id="usr" name="username" autocomplete="off" required autofocus>
+        <label for="pass">password</label>
+        <input type="password" id="pass" name="password" autocomplete="off" required>
+        <label for="cpass">confirm password</label>
+        <input type="password" id="cpass" name="cpassword" autocomplete="off" required>
+        <button type="submit" name="sub">submit</button>
+    </form>
+</div>
+
+
+<%- include("partials/footer") -%>

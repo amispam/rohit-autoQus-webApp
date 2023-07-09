@@ -1,0 +1,60 @@
+<%- include("partials/header") -%>
+<a href="/panel" class="mpanelview" target="_blank">open math panel</a>
+<div class="loginform">
+    <h1> <%= userinfo.class %>th, <%= userinfo.subject %> </h1>
+    <form action="/add/<%= userinfo._id %>" method="post">
+        <div class="aqtype">
+            <div>
+                <input type="radio" name="qtype" id="opt" value="opt" checked><br />
+                <label for="opt">optional</label>
+            </div>
+            <div>
+                <input type="radio" name="qtype" id="tf" value="tf"><br />
+                <label for="tf">true-false</label>
+            </div>
+            <div>
+                <input type="radio" name="qtype" id="fib" value="fib"><br />
+                <label for="fib">fill-in-blanks</label>
+            </div>
+            <div>
+                <input type="radio" name="qtype" id="ans" value="ans"><br />
+                <label for="ans">qus-ans</label>
+            </div>
+            
+        </div>
+        <label for="aQus">question</label>
+        <input type="text" id="aQus" name="qus" autocomplete="off" required autofocus>
+        <div class="optional" id="optional">
+            <label for="aA">option a</label>
+            <input type="text" id="aA" name="a" autocomplete="off">
+            <label for="aB">option b</label>
+            <input type="text" id="aB" name="b" autocomplete="off">
+            <label for="aC">option c</label>
+            <input type="text" id="aC" name="c" autocomplete="off">
+            <label for="aD">option d</label>
+            <input type="text" id="aD" name="d" autocomplete="off">
+        </div>
+        <label for="aMarks">Marks</label>
+        <input type="text" id="aMarks" name="marks" autocomplete="off" required>
+        <button type="submit" name="sub">add</button>
+    </form>
+</div>
+
+<div class="aqustablecontainer">
+    <div class="aquscontainer">
+        <div class="aqustype aqusheader">type</div>
+        <div class="aquscontent aqusheader">question</div>
+        <div class="aqustitle aqusheader">action</div>
+
+
+        <% qusbank.forEach(el=>{ %>
+            <div class="aqustype"><%= el[1] %></div>
+            <div class="aquscontent"><%= el[2].slice(0,50) %>...</div>
+            <div class="aqustitle"><a href="/delete/question/<%= el[0] %>" class="aqusaction">delete</a></div>
+        <% }) %>
+
+    </div>
+</div>
+
+<script src="/script/add.js"></script>
+<%- include("partials/footer") -%>
