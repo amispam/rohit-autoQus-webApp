@@ -17,10 +17,6 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static("public"));
 app.use(express.urlencoded({extended: true}));
 
-//database stuff------------------------------------
-mongoose.connect(process.env.DATABASE_URI, {useNewUrlParser:true,useUnifiedTopology: true}).then(()=>{
-    console.log("successfully connected to the database");
-
 const userSchema = new mongoose.Schema({
     username:{
         type: String,
@@ -394,10 +390,12 @@ app.get("/panel", (req, res)=>{
     res.render("panel");
 })
 
+//database stuff------------------------------------
+mongoose.connect(process.env.DATABASE_URI, {useNewUrlParser:true,useUnifiedTopology: true}).then(()=>{
+    console.log("successfully connected to the database");
 app.listen(port, (req, res)=>{
     console.log(`server started, listening at port ${port}`);
 });
-
 }).catch(err=>{
     console.log("unable to connect to the database");
 });
