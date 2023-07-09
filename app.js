@@ -22,8 +22,7 @@ app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: true, maxAge: 24*3600*1000 },
-    store: MongoStore.create({ mongoUrl: process.env.DATABASE_URI })
+    cookie: { secure: true, maxAge: 24*3600*1000 }
 }));
 
 //database stuff------------------------------------
