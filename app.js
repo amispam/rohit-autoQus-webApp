@@ -46,7 +46,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     cookie: { secure: true, maxAge: 24*3600*1000 },
-    store: MongoStore.create({ mongoUrl: 'mongodb://127.0.0.1:27017/paperdb' })
+    store: MongoStore.create({ mongoUrl: process.env.DATABASE_URI })
 }));
 
 //route stuff---------------------------------------
