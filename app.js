@@ -9,6 +9,12 @@ const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const saltRounds = 10;
 
+
+
+//database stuff------------------------------------
+mongoose.connect(process.env.DATABASE_URI, {useNewUrlParser:true,useUnifiedTopology: true}).then(()=>{
+    console.log("successfully connected to the database");
+    
 //server stuff--------------------------------------
 const port = process.env.PORT || 3000;
 const app = express();
@@ -16,16 +22,6 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static("public"));
 app.use(express.urlencoded({extended: true}));
-
-//database stuff------------------------------------
-mongoose.connect(process.env.DATABASE_URI, {useNewUrlParser:true,useUnifiedTopology: true}).then(()=>{
-    console.log("successfully connected to the database");
-    app.listen(port, (req, res)=>{
-    console.log(`server started, listening at port ${port}`);
-});
-}).catch(err=>{
-    console.log("unable to connect to the database");
-});
 
 const userSchema = new mongoose.Schema({
     username:{
@@ -398,4 +394,11 @@ app.get("/preview/:previewid", (req, res)=>{
 
 app.get("/panel", (req, res)=>{
     res.render("panel");
+});
+
+app.listen(port, (req, res)=>{
+    console.log(`server started, listening at port ${port}`);
+});
+}).catch(err=>{
+    console.log("unable to connect to the database");
 });
