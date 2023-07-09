@@ -98,6 +98,7 @@ app.route("/login")
                     console.log("login successful...");
                     req.session.userid = foundUser._id;
                     req.session.authorized = true;
+                    console.log(req.session);
                     res.redirect("/dashboard");
                 }else{
                     res.send("<h1>please enter the correct password...</h1>");
@@ -122,6 +123,7 @@ app.get("/logout", (req, res)=>{
 
 app.route("/dashboard")
 .get((req, res)=>{
+    console.log(req.session);
     if(req.session.userid && req.session.authorized === true){
         User.findOne({_id: req.session.userid}).then(userinfo=>{
             res.render("dashboard", {userinfo: userinfo});
