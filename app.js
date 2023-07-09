@@ -400,7 +400,7 @@ async function mainFun(){
 });
         
     }catch(err){
-console.log("unable to connect to the database";
+console.log("unable to connect to the database");
     }
 }
 mainFun();
