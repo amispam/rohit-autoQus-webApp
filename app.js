@@ -17,7 +17,20 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static("public"));
 app.use(express.urlencoded({extended: true}));
 
-const userSchema = new mongoose.Schema({
+
+//database stuff------------------------------------
+mongoose.connect(process.env.DATABASE_URI, {useNewUrlParser:true,useUnifiedTopology: true}).then(()=>{
+    console.log("successfully connected to the database");
+    //session stuff------------------------------------
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: true, maxAge: 24*3600*1000 },
+    store: MongoStore.create({ mongoUrl: process.env.DATABASE_URI })
+}));
+
+    const userSchema = new mongoose.Schema({
     username:{
         type: String,
         minLength: 5,
@@ -379,19 +392,8 @@ app.get("/preview/:previewid", (req, res)=>{
 
 app.get("/panel", (req, res)=>{
     res.render("panel");
-})
-
-//database stuff------------------------------------
-mongoose.connect(process.env.DATABASE_URI, {useNewUrlParser:true,useUnifiedTopology: true}).then(()=>{
-    console.log("successfully connected to the database");
-    //session stuff------------------------------------
-app.use(session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
-    cookie: { secure: true, maxAge: 24*3600*1000 },
-    store: MongoStore.create({ mongoUrl: process.env.DATABASE_URI })
-}));
+});
+    
 app.listen(port, (req, res)=>{
     console.log(`server started, listening at port ${port}`);
 });
