@@ -122,7 +122,7 @@ app.get("/logout", (req, res)=>{
 
 app.route("/dashboard")
 .get((req, res)=>{
-    if(req.session.authorized === true){
+    if(req.session.userid){
         User.findOne({_id: req.session.userid}).then(userinfo=>{
             res.render("dashboard", {userinfo: userinfo});
         }).catch(err=>{
