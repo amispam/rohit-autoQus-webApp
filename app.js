@@ -10,27 +10,21 @@ const MongoStore = require("connect-mongo");
 const saltRounds = 10;
 
 //server stuff--------------------------------------
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3000;
 const app = express();
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static("public"));
 app.use(express.urlencoded({extended: true}));
 
-
 //database stuff------------------------------------
 mongoose.connect(process.env.DATABASE_URI, {useNewUrlParser:true,useUnifiedTopology: true}).then(()=>{
     console.log("successfully connected to the database");
-    //session stuff------------------------------------
-app.use(session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
-    cookie: { secure: true, maxAge: 24*3600*1000 },
-    store: MongoStore.create({ mongoUrl: process.env.DATABASE_URI })
-}));
+}).catch(err=>{
+    console.log("unable to connect to the database");
+});
 
-    const userSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
     username:{
         type: String,
         minLength: 5,
@@ -45,6 +39,15 @@ app.use(session({
 });
 
 const User = mongoose.model("User", userSchema);
+
+//session stuff------------------------------------
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: true, maxAge: 24*3600*1000 },
+    store: MongoStore.create({ mongoUrl: 'mongodb://127.0.0.1:27017/paperdb' })
+}));
 
 //route stuff---------------------------------------
 app.route("/")
@@ -122,7 +125,7 @@ app.get("/logout", (req, res)=>{
 
 app.route("/dashboard")
 .get((req, res)=>{
-    if(req.session.userid){
+    if(req.session.userid && req.session.authorized === true){
         User.findOne({_id: req.session.userid}).then(userinfo=>{
             res.render("dashboard", {userinfo: userinfo});
         }).catch(err=>{
@@ -392,11 +395,8 @@ app.get("/preview/:previewid", (req, res)=>{
 
 app.get("/panel", (req, res)=>{
     res.render("panel");
-});
-    
+})
+
 app.listen(port, (req, res)=>{
     console.log(`server started, listening at port ${port}`);
-});
-}).catch(err=>{
-    console.log("unable to connect to the database");
 });
