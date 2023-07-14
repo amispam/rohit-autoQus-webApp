@@ -20,10 +20,25 @@
                 <input type="radio" name="qtype" id="ans" value="ans"><br />
                 <label for="ans">qus-ans</label>
             </div>
+            <div>
+                <input type="radio" name="qtype" id="custom" value="custom"><br />
+                <label for="custom">custom</label>
+            </div>
             
         </div>
         <label for="aQus">question</label>
         <input type="text" id="aQus" name="qus" autocomplete="off" required autofocus>
+        <div class="addcustom" id="addcustom">
+            <label for="addcustom">list members</label>
+            <div class="addlistgrid" id="addlistgrid">
+                <div><input type="text" id="specialInput" name="l1" autocomplete="off"></div>
+                <div><input type="text" id="specialInput" name="l2" autocomplete="off"></div>
+                <div><input type="text" id="specialInput" name="l3" autocomplete="off"></div>
+            </div>
+            <div><input type="button" onclick="addmorelist()" value="+" /></div>
+            <label for="asubtext">subtext</label>
+            <input type="text" id="asubtext" name="subtext" autocomplete="off">
+        </div>
         <div class="optional" id="optional">
             <label for="aA">option a</label>
             <input type="text" id="aA" name="a" autocomplete="off">
@@ -34,8 +49,7 @@
             <label for="aD">option d</label>
             <input type="text" id="aD" name="d" autocomplete="off">
         </div>
-        <label for="aMarks">Marks</label>
-        <input type="text" id="aMarks" name="marks" autocomplete="off" required>
+        
         <button type="submit" name="sub">add</button>
     </form>
 </div>
