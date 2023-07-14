@@ -17,7 +17,9 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static("public"));
 app.use(express.urlencoded({extended: true}));
 
+
 //session stuff deploy------------------------------
+
 app.set('trust proxy', 1);
 app.use(session({
     secret: process.env.SESSION_SECRET,
@@ -440,4 +442,5 @@ async function mainFun(){
 console.log("unable to connect to the database");
     }
 }
+
 mainFun();
