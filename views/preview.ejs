@@ -54,7 +54,7 @@
 
                     <% opt.forEach(el=>{ %>
                     <!-- this portion iterates -->
-                    <div class="qus"><b><%= el[6] %>.</b> <%= el[0] %></div>
+                    <div class="qus"><b><%= el[5] %>.</b> <%= el[0] %></div>
                     <div class="optgrid">
                         <div><b>(a)</b> <%= el[1] %></div>
                         <div><b>(b)</b> <%= el[2] %></div>
@@ -82,7 +82,7 @@
 
                     <% fib.forEach(el=>{ %> 
                     <!-- this portion iterates -->
-                    <div class="qus"><b><%= el[2] %>.</b> <%= el[0] %></div>
+                    <div class="qus"><b><%= el[1] %>.</b> <%= el[0] %></div>
                     <!-- this portion iterates -->
                     <% }) %>
 
@@ -102,7 +102,7 @@
 
                     <% tf.forEach(el=>{ %>
                     <!-- this portion iterates -->
-                    <div class="qus"><b><%= el[2] %>.</b> <%= el[0] %></div>
+                    <div class="qus"><b><%= el[1] %>.</b> <%= el[0] %></div>
                     <!-- this portion iterates -->
                     <% }) %>
 
@@ -122,13 +122,54 @@
 
                     <% ans.forEach(el=>{ %>
                     <!-- this portion iterates -->
-                    <div class="qus"><b><%= el[2] %>.</b> <%= el[0] %></div>
+                    <div class="qus"><b><%= el[1] %>.</b> <%= el[0] %></div>
                     <!-- this portion iterates -->
                     <% }) %>
 
                 </div>
             </div>
-            <!-- Answer the following questions begins --> 
+            <!-- Answer the following questions ends --> 
+            <% } %> 
+
+            <% if(customdata.length > 0){ %>
+            <!-- Answer the following questions begins -->
+            <div class="question">
+                <div class="qusbody">
+
+                    <% customdata.forEach(el=>{ %>
+                        <% const listIndex = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']; %>
+                        <% qusNumber += 1; %>
+                        <div class="title">
+                            <h1><b>Question <%= qusNumber %>.</b> <%= el[0] %></h1> 
+                        </div>
+                    <!-- this portion iterates -->
+                        <div class="qusgrid">
+                                    <% let counter = 0; %>
+                                    <% let columncounter = 0; %>
+                                    <% el[1][0].forEach(newel=>{ %>
+                                        <div>
+                                            <b>(<%= listIndex[counter] %>)</b>
+                                        </div>
+                                        <div>
+                                            <%= newel %>
+                                            <% counter+=1; %>
+                                        </div>
+                                        <div>
+                                            <%= el[1][1][ columncounter ] %>
+                                        </div>
+                                        <div>
+                                            <%= el[1][2][ columncounter] %>
+                                        </div>
+                                    <% columncounter+=1; }); %>
+                        </div>
+                        <div class="qussubtext">
+                            <%= el[1][3] %>
+                        </div>
+                    <!-- this portion iterates -->
+                    <% }) %>
+
+                </div>
+            </div>
             <% } %> 
 
 

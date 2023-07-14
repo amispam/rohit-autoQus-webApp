@@ -17,7 +17,9 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static("public"));
 app.use(express.urlencoded({extended: true}));
 
-//session stuff------------------------------------
+
+//session stuff deploy------------------------------
+
 app.set('trust proxy', 1);
 app.use(session({
     secret: process.env.SESSION_SECRET,
@@ -26,6 +28,15 @@ app.use(session({
     cookie: { secure: true, maxAge: 24*3600*1000 },
     store: MongoStore.create({mongoUrl: process.env.DATABASE_URI})
 }));
+
+//session stuff local-------------------------------
+// app.use(session({
+//     secret: process.env.SESSION_SECRET,
+//     resave: false,
+//     saveUninitialized: false,
+//     cookie: { secure: false, maxAge: 24*3600*1000 },
+//     store: MongoStore.create({mongoUrl: process.env.DATABASE_URI})
+// }));
 
 //database stuff------------------------------------
 
@@ -175,10 +186,7 @@ const questionSchema = new mongoose.Schema({
     b: String,
     c: String,
     d: String,
-    marks:{
-        type: String,
-        required: true
-    },
+    custom: [[]],
     paperid: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Paper'
@@ -272,20 +280,44 @@ app.route("/add/:paperId")
                         b: req.body.b,
                         c: req.body.c,
                         d: req.body.d,
-                        marks: req.body.marks,
                         paperid: customurl,
                         userid: req.session.userid
                     });
                     tempQus.save().then(()=>{res.redirect("/add/"+customurl);}).catch(err=>console.log("sorry, can not save at the moment..."));
-                }else{
+                }else if(opt !== "opt" && opt !== "custom"){
                     const tempQus = new Question({
                         qtype: req.body.qtype,
                         qus: req.body.qus,
-                        marks: req.body.marks,
                         paperid: customurl,
                         userid: req.session.userid
                     });
                     tempQus.save().then(()=>{res.redirect("/add/"+customurl);}).catch(err=>console.log(err));
+                }
+                else{
+                    let tempcustomarray = [];
+                    let columnone = [];
+                    let columntwo = [];
+                    let columnthree = [];
+                    Object.keys(req.body).forEach(el=>{
+                        if(el !== 'qtype' && el !== 'qus' && el !== 'subtext' && el !== 'sub'){
+                            if(parseInt(el.substring(1,))%3===1){
+                                columnone.push(req.body[el]);
+                            }else if(parseInt(el.substring(1,))%3 === 2){
+                                columntwo.push(req.body[el]);
+                            }else{
+                                columnthree.push(req.body[el]);
+                            }
+                        }
+                    });
+                    tempcustomarray.push(columnone, columntwo, columnthree, req.body.subtext);
+                    const tempQus = new Question({
+                        qtype: req.body.qtype,
+                        qus: req.body.qus,
+                        custom: tempcustomarray,
+                        paperid: customurl,
+                        userid: req.session.userid
+                    });
+                    tempQus.save().then(()=>{res.redirect("/add/"+customurl);}).catch(err=>console.log(err));                   
                 }
             }else{
                 res.redirect("/dashboard");
@@ -352,32 +384,37 @@ app.get("/preview/:previewid", (req, res)=>{
                 const fibData = [];
                 const tfData = [];
                 const ansData = [];
+                const customData = [];
                 async function filterQus(){
                     const optional = await Question.find({paperid: customurl, qtype: 'opt'});
                     const fib = await Question.find({paperid: customurl, qtype: 'fib'});
                     const tf = await Question.find({paperid: customurl, qtype: 'tf'});
                     const ans = await Question.find({paperid: customurl, qtype: 'ans'});
+                    const custom = await Question.find({paperid: customurl, qtype: 'custom'});
                     let romanIndex = 0;
                     optional.forEach(el=>{
-                        optData.push([el['qus'], el['a'], el['b'], el['c'], el['d'], el['marks'], romanNum[romanIndex] ]);
+                        optData.push([el['qus'], el['a'], el['b'], el['c'], el['d'], romanNum[romanIndex] ]);
                         romanIndex += 1;
                     });
                     romanIndex = 0;
                     fib.forEach(el=>{
-                        fibData.push([el['qus'], el['marks'], romanNum[romanIndex] ]);
+                        fibData.push([el['qus'], romanNum[romanIndex] ]);
                         romanIndex += 1;
                     });
                     romanIndex = 0;
                     tf.forEach(el=>{
-                        tfData.push([el['qus'], el['marks'], romanNum[romanIndex] ]);
+                        tfData.push([el['qus'], romanNum[romanIndex] ]);
                         romanIndex+=1;
                     });
                     romanIndex = 0;
                     ans.forEach(el=>{
-                        ansData.push([el['qus'], el['marks'], romanNum[romanIndex] ]);
+                        ansData.push([el['qus'], romanNum[romanIndex] ]);
                         romanIndex+=1;
                     });
-                    res.render("preview", {sub: subData, cls: clsData, sco: scoData, dur: durData, tes: tesData, opt: optData, fib: fibData, tf: tfData, ans: ansData, qusNumber: qusNumber });
+                    custom.forEach(el=>{
+                        customData.push([el['qus'], el['custom'] ]);
+                    });
+                    res.render("preview", {sub: subData, cls: clsData, sco: scoData, dur: durData, tes: tesData, opt: optData, fib: fibData, tf: tfData, ans: ansData, qusNumber: qusNumber, customdata: customData });
                 }
                 filterQus();
                 
@@ -405,4 +442,5 @@ async function mainFun(){
 console.log("unable to connect to the database");
     }
 }
+
 mainFun();

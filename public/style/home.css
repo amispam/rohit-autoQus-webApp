@@ -168,7 +168,7 @@ body{
     margin-bottom: 1rem;
 }
 
-.homeform button, .loginform button{
+.homeform button, .loginform button, .loginform input[type=button]{
     width: 55vw;
     font-size: 3rem;
     border-left: none;
@@ -206,8 +206,18 @@ body{
     height: 2.2rem;
     align-items: center;
     justify-content: space-around;
-    margin-bottom: 8rem;
     flex-wrap: wrap;
+}
+
+@media (max-width:700px){
+    .aqtype{
+        margin-bottom: 12rem;
+    }
+}
+@media (min-width:700px){
+    .aqtype{
+        margin-bottom: 4rem;
+    }
 }
 
 .aqtype div{
@@ -274,4 +284,20 @@ body{
     padding:1rem;
     float:right;
     z-index: 1;
+}
+
+.addlistgrid{
+    display: grid;
+    width: 55vw;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    gap:1rem;
+}
+
+#specialInput{
+    width:17vw;
+}
+
+.addcustom{
+    display: none;
 }
