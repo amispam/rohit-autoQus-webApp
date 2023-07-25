@@ -7,15 +7,19 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
+const multer = require("multer");
+const authorized = require("./routes/backblaze/backblaze");
+const fs = require("fs");
 const saltRounds = 10;
+const upload = multer({dest: 'uploads/'});
 
 //server stuff--------------------------------------
-const port = process.env.PORT || 3000;
-const app = express();
-app.set('view engine', 'ejs');
-app.use(bodyParser.urlencoded({extended:true}));
-app.use(express.static("public"));
-app.use(express.urlencoded({extended: true}));
+// const port = process.env.PORT || 3000;
+// const app = express();
+// app.set('view engine', 'ejs');
+// app.use(bodyParser.urlencoded({extended:true}));
+// app.use(express.static("public"));
+// app.use(express.urlencoded({extended: true}));
 
 
 //session stuff deploy------------------------------
@@ -30,13 +34,13 @@ app.use(session({
 }));
 
 //session stuff local-------------------------------
-// app.use(session({
-//     secret: process.env.SESSION_SECRET,
-//     resave: false,
-//     saveUninitialized: false,
-//     cookie: { secure: false, maxAge: 24*3600*1000 },
-//     store: MongoStore.create({mongoUrl: process.env.DATABASE_URI})
-// }));
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: false, maxAge: 24*3600*1000 },
+    store: MongoStore.create({mongoUrl: process.env.DATABASE_URI})
+}));
 
 //database stuff------------------------------------
 
@@ -266,63 +270,107 @@ app.route("/add/:paperId")
         res.redirect("/login");
     }
 })
-.post((req, res)=>{
+.post(upload.single('imgfile'), async(req, res)=>{
+    if(authorized['authorizationToken']===null){
+        await authorized.authorize();
+    }
+    let imageurl = [];
+
     if(req.session.userid && req.session.authorized === true){
-        const customurl = req.params.paperId;
-        Paper.findOne({_id: customurl}).then(userinfo=>{
-            if(userinfo.userid.toString() === req.session.userid){
-                const opt = req.body.qtype;
-                if(opt === "opt"){
-                    const tempQus = new Question({
-                        qtype: req.body.qtype,
-                        qus: req.body.qus,
-                        a: req.body.a,
-                        b: req.body.b,
-                        c: req.body.c,
-                        d: req.body.d,
-                        paperid: customurl,
-                        userid: req.session.userid
-                    });
-                    tempQus.save().then(()=>{res.redirect("/add/"+customurl);}).catch(err=>console.log("sorry, can not save at the moment..."));
-                }else if(opt !== "opt" && opt !== "custom"){
-                    const tempQus = new Question({
-                        qtype: req.body.qtype,
-                        qus: req.body.qus,
-                        paperid: customurl,
-                        userid: req.session.userid
-                    });
-                    tempQus.save().then(()=>{res.redirect("/add/"+customurl);}).catch(err=>console.log(err));
-                }
-                else{
-                    let tempcustomarray = [];
-                    let columnone = [];
-                    let columntwo = [];
-                    let columnthree = [];
-                    Object.keys(req.body).forEach(el=>{
-                        if(el !== 'qtype' && el !== 'qus' && el !== 'subtext' && el !== 'sub'){
-                            if(parseInt(el.substring(1,))%3===1){
-                                columnone.push(req.body[el]);
-                            }else if(parseInt(el.substring(1,))%3 === 2){
-                                columntwo.push(req.body[el]);
-                            }else{
-                                columnthree.push(req.body[el]);
+
+
+        function restOfTheWork(){
+            const customurl = req.params.paperId;
+            Paper.findOne({_id: customurl}).then(userinfo=>{
+                if(userinfo.userid.toString() === req.session.userid){
+                    const opt = req.body.qtype;
+                    if(opt === "opt"){
+                        const tempQus = new Question({
+                            qtype: req.body.qtype,
+                            qus: req.body.qus,
+                            a: req.body.a,
+                            b: req.body.b,
+                            c: req.body.c,
+                            d: req.body.d,
+                            paperid: customurl,
+                            userid: req.session.userid
+                        });
+                        tempQus.save().then(()=>{res.redirect("/add/"+customurl);}).catch(err=>console.log("sorry, can not save at the moment..."));
+                    }else if(opt !== "opt" && opt !== "custom"){
+                        const tempQus = new Question({
+                            qtype: req.body.qtype,
+                            qus: req.body.qus,
+                            paperid: customurl,
+                            userid: req.session.userid
+                        });
+                        tempQus.save().then(()=>{res.redirect("/add/"+customurl);}).catch(err=>console.log(err));
+                    }
+                    else{
+                        let tempcustomarray = [];
+                        let columnone = [];
+                        let columntwo = [];
+                        let columnthree = [];
+                        let columnmono = [];
+                        Object.keys(req.body).forEach(el=>{
+                            if(el.substring(0,1) == "l" ){
+                                if(parseInt(el.substring(1,))%3===1){
+                                    columnone.push(req.body[el]);
+                                }else if(parseInt(el.substring(1,))%3 === 2){
+                                    columntwo.push(req.body[el]);
+                                }else{
+                                    columnthree.push(req.body[el]);
+                                }
+                            }else if(el.substring(0,1) == "m"){
+                                columnmono.push(req.body[el]);
                             }
-                        }
-                    });
-                    tempcustomarray.push(columnone, columntwo, columnthree, req.body.subtext);
-                    const tempQus = new Question({
-                        qtype: req.body.qtype,
-                        qus: req.body.qus,
-                        custom: tempcustomarray,
-                        paperid: customurl,
-                        userid: req.session.userid
-                    });
-                    tempQus.save().then(()=>{res.redirect("/add/"+customurl);}).catch(err=>console.log(err));                   
+                        });
+                        tempcustomarray.push(columnone, columntwo, columnthree, req.body.subtext, columnmono, imageurl);
+                        const tempQus = new Question({
+                            qtype: req.body.qtype,
+                            qus: req.body.qus,
+                            custom: tempcustomarray,
+                            paperid: customurl,
+                            userid: req.session.userid
+                        });
+                        tempQus.save().then(()=>{res.redirect("/add/"+customurl);}).catch(err=>console.log(err));                   
+                    }
+                }else{
+                    res.redirect("/dashboard");
                 }
-            }else{
-                res.redirect("/dashboard");
-            }
-        }).catch(err=>{console.log("some serious error related to paper..."); res.redirect("/dashboard");});
+            }).catch(err=>{console.log("some serious error related to paper..."); res.redirect("/dashboard");});
+        }
+
+        let imagefile = req.file;
+        let validatedData = "";
+        if(imagefile){
+            authorized.getUploadUrl({
+                bucketId: process.env.BuCKET_ID
+            }).then(result=>{
+                validatedData = result.data;
+                const fileData = imagefile.path;
+                fs.promises.readFile(fileData).then(imagebufferdata=>{
+                    authorized.uploadFile({
+                        uploadUrl: validatedData.uploadUrl,
+                        uploadAuthToken: validatedData.authorizationToken,
+                        fileName: imagefile.originalname,
+                        data: imagebufferdata
+                    }).then((response)=>{
+                        console.log(response.data.fileName);
+                        imageurl.push('https://f005.backblazeb2.com/file/saveuserimage/'+String(response.data.fileName));
+                        fs.unlink(fileData, err=>{});
+                        restOfTheWork();
+                    }).catch(err=>{
+                        console.log("Opps: ", err);
+                    })
+                }).catch(err=>{
+                    console.log("last error: ", err);
+                });
+                
+            });
+        }else{
+            restOfTheWork();
+        }
+
     }else{
         res.redirect("/login");
     }
@@ -421,7 +469,7 @@ app.get("/preview/:previewid", (req, res)=>{
             }else{
                 res.send("<h1>invalid request</h1>");
             }
-        }).catch(err=>{console.log("that paper seems does not exists...");});
+        }).catch(err=>{console.log("that paper seems does not exists..."); res.send("<h1>I am not interested in processing your invalid request</h1>")});
     }else{
         res.redirect("/login");
     }
@@ -429,7 +477,10 @@ app.get("/preview/:previewid", (req, res)=>{
 
 app.get("/panel", (req, res)=>{
     res.render("panel");
-})
+});
+
+require("./routes/routes")(app);
+
 async function mainFun(){
     try{
         await mongoose.connect(process.env.DATABASE_URI, {useNewUrlParser:true,useUnifiedTopology: true});

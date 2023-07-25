@@ -140,3 +140,8 @@ hr{
     justify-content: center;
     gap:5px;
 }
+
+.fetchimg{
+    max-height: 30vh;
+    width:max-content;
+}
