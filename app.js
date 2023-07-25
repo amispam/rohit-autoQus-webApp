@@ -14,22 +14,22 @@ const saltRounds = 10;
 const upload = multer({dest: 'uploads/'});
 
 //server stuff--------------------------------------
-const port = process.env.PORT || 3000;
-const app = express();
-app.set('view engine', 'ejs');
-app.use(bodyParser.urlencoded({extended:true}));
-app.use(express.static("public"));
-app.use(express.urlencoded({extended: true}));
+// const port = process.env.PORT || 3000;
+// const app = express();
+// app.set('view engine', 'ejs');
+// app.use(bodyParser.urlencoded({extended:true}));
+// app.use(express.static("public"));
+// app.use(express.urlencoded({extended: true}));
 
 //session stuff deploy------------------------------
-// app.set('trust proxy', 1);
-// app.use(session({
-//     secret: process.env.SESSION_SECRET,
-//     resave: false,
-//     saveUninitialized: false,
-//     cookie: { secure: true, maxAge: 24*3600*1000 },
-//     store: MongoStore.create({mongoUrl: process.env.DATABASE_URI})
-// }));
+app.set('trust proxy', 1);
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: true, maxAge: 24*3600*1000 },
+    store: MongoStore.create({mongoUrl: process.env.DATABASE_URI})
+}));
 
 //session stuff local-------------------------------
 app.use(session({
