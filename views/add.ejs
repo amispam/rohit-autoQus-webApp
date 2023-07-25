@@ -2,7 +2,7 @@
 <a href="/panel" class="mpanelview" target="_blank">open math panel</a>
 <div class="loginform">
     <h1> <%= userinfo.class %>th, <%= userinfo.subject %> </h1>
-    <form action="/add/<%= userinfo._id %>" method="post">
+    <form action="/add/<%= userinfo._id %>" method="post" enctype="multipart/form-data">
         <div class="aqtype">
             <div>
                 <input type="radio" name="qtype" id="opt" value="opt" checked><br />
@@ -36,6 +36,24 @@
                 <div><input type="text" id="specialInput" name="l3" autocomplete="off"></div>
             </div>
             <div><input type="button" onclick="addmorelist()" value="+" /></div>
+
+            <div class="addsinglelist" id="addmono">
+                <div>
+                    <label for="mono">mono list</label>
+                    <input type="text" id="mono" name="mono1" autocomplete="off">
+                </div>
+            </div>
+            <div><input type="button" onclick="addmono()" value="+" /></div>
+
+
+            <div class="addpic">
+                <div class="customupload">
+                    <label for="imgfile" class="filelabel">upload image</label>
+                    <input type="file" accept="image/jpg, image/jpeg, image/png" name="imgfile" id="imgfile">
+                </div>
+            </div>
+
+
             <label for="asubtext">subtext</label>
             <input type="text" id="asubtext" name="subtext" autocomplete="off">
         </div>

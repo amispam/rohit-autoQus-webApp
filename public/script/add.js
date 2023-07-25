@@ -32,3 +32,8 @@ function addmorelist(){
     document.getElementById("addlistgrid").innerHTML += '<div><input type="text" id="specialInput" name="l'+(customindex*3+1)+'" autocomplete="off"></div><div><input type="text" id="specialInput" name="l'+(customindex*3+2)+'" autocomplete="off"></div><div><input type="text" id="specialInput" name="l'+(customindex*3+3)+'" autocomplete="off"></div>';
     customindex+=1;
 }
+let monoIndex = 2;
+function addmono(){
+    document.getElementById("addmono").innerHTML += '<div><input type="text" id="mono" name="mono'+(monoIndex)+'" autocomplete="off"></div>';
+    monoIndex+=1;
+}

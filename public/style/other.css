@@ -7,6 +7,7 @@
 .dcontainer{
     display: flex;
     justify-content: center;
+    margin-bottom: 4rem;
 }
 
 .dashboardcontainer{
@@ -30,7 +31,21 @@
     background-position: center;
 }
 
-.create, .mypapers{
+.mystudents{
+    background-image: url("/images/students.svg");
+    background-size: 25vw;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.myresults{
+    background-image: url("/images/results.svg");
+    background-size: 25vw;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.create, .mypapers, .myresults, .mystudents{
     position: relative;
     height: 30vw; 
     width: 30vw;
@@ -50,6 +65,14 @@
     background-color: #0A4D68;
 }
 
+.mystudents:hover{
+    background-color: #0A4D68;
+}
+
+.myresults:hover{
+    background-color: #0A4D68;
+}
+
 .hyperspan{
     height: 100%;
     width: 100%;
@@ -60,7 +83,7 @@
 }
 
 @media (min-width:800px){
-    .create, .mypapers{
+    .create, .mypapers, .mystudents, .myresults{
         font-size: 2.5rem;
     }
     .dashboardcontainer{
@@ -68,7 +91,7 @@
     }
 }
 @media (min-width:420px) and (max-width:800px){
-    .create, .mypapers{
+    .create, .mypapers, .mystudents, .myresults{
         font-size: 1.5rem;
     }
     .dashboardcontainer{
@@ -77,7 +100,7 @@
 }
 
 @media (max-width:420px){
-    .create, .mypapers{
+    .create, .mypapers, .mystudents, .myresults{
         font-size: 1.2rem;
     }
     .dashboardcontainer{

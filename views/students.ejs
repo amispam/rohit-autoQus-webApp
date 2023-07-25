@@ -1,0 +1,25 @@
+<%- include("partials/header") -%>
+
+<div class="homeform">
+    <h1>register</h1>
+    <form action="/students" method="post">
+        <label for="stdn">student's complete name</label>
+        <input type="text" id="stdn" name="stdname" autocomplete="off" required autofocus placeholder="do not use sir/ma'am/mister or any other title">
+
+        <label for="fatn">gaurdian's complete name</label>
+        <input type="text" id="fatn" name="fatname" autocomplete="off" required placeholder="do not use sir/ma'am/mister or any other title">
+
+        <label for="clss">class</label>
+        <input type="number" id="clss" name="class" autocomplete="off" required>
+
+        <label for="roll">roll no.</label>
+        <input type="number" id="roll" name="rollnum" autocomplete="off" required>
+
+        <label for="phon">guardian's phone no.</label>
+        <input type="number" id="phon" name="phon" autocomplete="off" required>
+
+        <button type="submit" name="sub">submit</button>
+    </form>
+</div>
+
+<%- include("partials/footer") -%>
