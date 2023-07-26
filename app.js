@@ -11,9 +11,7 @@ const multer = require("multer");
 const authorized = require("./routes/backblaze/backblaze");
 const fs = require("fs");
 const saltRounds = 10;
-const upload = multer({
-  storage: multer.memoryStorage(),
-});
+const upload = multer({dest: 'uploads/'});
 
 //server stuff--------------------------------------
 const port = process.env.PORT || 3000;
@@ -23,9 +21,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static("public"));
 app.use(express.urlencoded({extended: true}));
 
-
 //session stuff deploy------------------------------
-
 app.set('trust proxy', 1);
 app.use(session({
     secret: process.env.SESSION_SECRET,
@@ -495,5 +491,4 @@ async function mainFun(){
 console.log("unable to connect to the database");
     }
 }
-
 mainFun();
