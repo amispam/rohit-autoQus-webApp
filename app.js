@@ -232,8 +232,13 @@ app.route("/paper")
 .get(async (req, res)=>{
     if(req.session.userid && req.session.authorized === true){
         try{
-            const userinfo = await Paper.find({userid: req.session.userid});
-            res.render("paper", {userinfo: userinfo});
+            if(req.session.userid === process.env.SUPERUSER){
+                const userinfo = await Paper.find({});
+                res.render("paper", {userinfo: userinfo});
+            }else{
+                const userinfo = await Paper.find({userid: req.session.userid});
+                res.render("paper", {userinfo: userinfo});
+            }
         }catch(err){
             console.log("error while handeling paper...");
         }
@@ -416,7 +421,7 @@ app.get("/preview/:previewid", (req, res)=>{
     if(req.session.userid && req.session.authorized === true){
         const customurl = req.params.previewid;
         Paper.findOne({_id: customurl}).then(foundPaper=>{
-            if(foundPaper.userid.toString() === req.session.userid){
+            if(foundPaper.userid.toString() === req.session.userid || req.session.userid === process.env.SUPERUSER){
                 const romanNum = ['i', 'ii', 'iii', 'iv', 'v', 'vi', 'vii', 'viii', 'ix', 'x', 'xi', 'xii', 'xiii', 'xiv', 'xv', 'xvi', 'xvii', 'xviii', 'xix', 'xx', 'xxi', 'xxii', 'xxiii', 'xxiv', 'xxv', 'xxvi', 'xxvii', 'xxviii', 'xxix', 'xxx'];
                 const qusNumber = 0;
 
