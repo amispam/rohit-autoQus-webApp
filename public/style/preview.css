@@ -142,6 +142,6 @@ hr{
 }
 
 .fetchimg{
-    max-height: 30vh;
+    max-width: 60vw;
     width:max-content;
 }
