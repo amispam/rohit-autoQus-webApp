@@ -80,7 +80,11 @@ hr{
     padding-right: 1rem;
     display: flex;
     justify-content: space-between;
-    font-weight: bold;
+}
+
+.panel > div > div{
+    display: flex;
+    justify-content: space-between;
 }
 
 .question{
