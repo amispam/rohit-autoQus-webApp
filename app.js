@@ -384,7 +384,7 @@ app.route("/delete/:paperId")
     const customurl = req.params.paperId;
     if(req.session.userid && req.session.authorized === true){
         Paper.findOne({_id: customurl}).then(foundPaper=>{
-            if(foundPaper.userid.toString() === req.session.userid){
+            if(foundPaper.userid.toString() === req.session.userid || req.session.userid === process.env.SUPERUSER){
                 Paper.deleteOne({_id: customurl}).then(()=>{
                     Question.deleteMany({paperid: customurl}).then(()=>{
                         res.redirect("/paper");
