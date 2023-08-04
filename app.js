@@ -406,7 +406,7 @@ app.get("/delete/question/:questionid", (req, res)=>{
     if(req.session.userid && req.session.authorized === true){
         Question.findOne({_id: customurl}).then(foundQuestion=>{
             const getpaperidbyqus = foundQuestion.paperid.toString();
-            if(foundQuestion.userid.toString() === req.session.userid){
+            if(foundQuestion.userid.toString() === req.session.userid || req.session.userid === process.env.SUPERUSER){
                 Question.deleteOne({_id: customurl}).then(()=>{
                     res.redirect("/add/"+getpaperidbyqus);
                 }).catch(err=>{console.log("unable to delete perticular question...");});
