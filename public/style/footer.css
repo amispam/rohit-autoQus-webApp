@@ -1,9 +1,10 @@
 .ftrflex{
     display:flex;
-    padding:1rem;
-    background-color: rgba(0,0,0,0.1);
-    justify-content: center;
-    color:#0A4D68;
+    justify-content: end;
+    position: fixed;
+    bottom:0;
+    left:0;
+    right:0;
 }
 
 
@@ -14,14 +15,25 @@
     grid-template-rows: 1fr 1fr;
 }
 
+.ftrgrid>div{
+    background-color:rgba(0, 0, 0, 0.658);
+    padding:2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:burlywood;
+}
+.ftrgrid>div>span{
+    font-size: 1.5rem;
+}
+
 .ftrdeveloper{
     background-color: rgba(6, 76, 255, 0.735);
     background-image: url("/images/ROHIT_PROFILE_PICTURE.jpg");
     background-repeat: no-repeat;
-    background-size: cover;
-    background-position-y:20% ;
+    background-size: contain;
+    background-position: center;
     border-radius: 50%;
-    background-blend-mode: lighten;
     height: 50px;
     width:50px;
 }
@@ -30,14 +42,6 @@
     grid-row: span 2;
     display: flex;
     align-items: center;
-}
-
-.ftrgrid>div{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.ftrgrid>div>span{
-    font-size: 1.5rem;
+    grid-row: 0;
 }
 
