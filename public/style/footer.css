@@ -11,7 +11,7 @@
 .ftrgrid{
     display: grid;
     gap:4px;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 2fr;
     grid-template-rows: 1fr 1fr;
 }
 
