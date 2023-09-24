@@ -5,6 +5,7 @@
     bottom:5px;
     left:0;
     right:5px;
+    z-index:-1;
 }
 
 
@@ -16,12 +17,12 @@
 }
 
 .ftrgrid>div{
-    background-color:rgba(0, 0, 0, 0.658);
+    background-color:rgba(0, 0, 0, 0.2);
     padding:2px;
     display: flex;
     justify-content: center;
     align-items: center;
-    color:burlywood;
+    color:black;
 }
 .ftrgrid>div>span{
     font-size: 1.5rem;
