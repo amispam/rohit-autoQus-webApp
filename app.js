@@ -11,7 +11,7 @@ const multer = require("multer");
 const authorized = require("./routes/backblaze/backblaze");
 const fs = require("fs");
 const saltRounds = 10;
-const upload = multer({dest: 'temp/'});
+const upload = multer({dest: 'uploads/'});
 
 //server stuff--------------------------------------
 const port = process.env.PORT || 3000;
